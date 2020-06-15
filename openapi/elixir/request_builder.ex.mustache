@@ -83,7 +83,7 @@ defmodule {{moduleName}}.RequestBuilder do
   def add_param(request, :body, key, value) do
     request
     |> Map.put_new_lazy(:body, &Tesla.Multipart.new/0)
-    |> Map.update!(:body, &(Tesla.Multipart.add_field(&1, key, Poison.encode!(value), headers: [{:"Content-Type", "application/json"}])))
+    |> Map.update!(:body, &(Tesla.Multipart.add_field(&1, key, Jason.encode!(value), headers: [{:"Content-Type", "application/json"}])))
   end
   def add_param(request, :headers, key, value) do
     request
@@ -118,7 +118,7 @@ defmodule {{moduleName}}.RequestBuilder do
   @spec decode(Tesla.Env.t() | term(), false | struct() | [struct()]) ::
           {:ok, struct()} | {:ok, Tesla.Env.t()} | {:error, any}
   def decode(%Tesla.Env{} = env, false), do: {:ok, env}
-  def decode(%Tesla.Env{body: body}, struct), do: Poison.decode(body, as: struct)
+  def decode(%Tesla.Env{body: body}, struct), do: Jason.decode(body, as: struct)
 
   def evaluate_response({:ok, %Tesla.Env{} = env}, mapping) do
     resolve_mapping(env, mapping)

@@ -37,7 +37,7 @@ defmodule RasaSdk.Mixfile do
     [
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
       {:tesla, "~> 1.2"},
-      {:poison, "~> 3.0"},
+      {:jason, "~> 1.2"},
       {:plug, "~> 1.8"}
     ]
   end
