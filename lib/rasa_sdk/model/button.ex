@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.Button do
   A button which can be clicked by the user in the conversation.
   """
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :title,
     :payload
@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.Button do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Button do
+defimpl Jason.Decoder, for: RasaSdk.Model.Button do
   def decode(value, _options) do
     value
   end

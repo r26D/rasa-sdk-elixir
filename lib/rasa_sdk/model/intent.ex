@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.Intent do
   Intent of the text
   """
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :confidence,
     :name
@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.Intent do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Intent do
+defimpl Jason.Decoder, for: RasaSdk.Model.Intent do
   def decode(value, _options) do
     value
   end

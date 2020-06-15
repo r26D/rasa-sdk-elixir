@@ -8,7 +8,7 @@ defmodule RasaSdk.Model.ButtonResponse do
   """
   alias RasaSdk.Model.Button
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :text,
     :buttons
@@ -20,7 +20,7 @@ defmodule RasaSdk.Model.ButtonResponse do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.ButtonResponse do
+defimpl Jason.Decoder, for: RasaSdk.Model.ButtonResponse do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

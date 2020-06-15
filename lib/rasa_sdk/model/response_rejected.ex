@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.ResponseRejected do
   Action execution was rejected. This is the same as returning an &#x60;ActionExecutionRejected&#x60; event.
   """
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :action_name,
     :error
@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.ResponseRejected do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.ResponseRejected do
+defimpl Jason.Decoder, for: RasaSdk.Model.ResponseRejected do
   def decode(value, _options) do
     value
   end

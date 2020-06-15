@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.TrackerActiveForm do
   Name of the active form
   """
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :name,
     :validate
@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.TrackerActiveForm do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.TrackerActiveForm do
+defimpl Jason.Decoder, for: RasaSdk.Model.TrackerActiveForm do
   def decode(value, _options) do
     value
   end

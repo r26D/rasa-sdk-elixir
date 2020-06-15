@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.TemplateResponse do
   Response template the bot should utter.
   """
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :template
   ]
@@ -17,7 +17,7 @@ defmodule RasaSdk.Model.TemplateResponse do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.TemplateResponse do
+defimpl Jason.Decoder, for: RasaSdk.Model.TemplateResponse do
   def decode(value, _options) do
     value
   end

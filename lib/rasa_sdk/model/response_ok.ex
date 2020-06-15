@@ -9,7 +9,7 @@ defmodule RasaSdk.Model.ResponseOk do
   alias RasaSdk.Model.Event
   alias RasaSdk.Model.Response
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :events,
     :responses
@@ -21,7 +21,7 @@ defmodule RasaSdk.Model.ResponseOk do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.ResponseOk do
+defimpl Jason.Decoder, for: RasaSdk.Model.ResponseOk do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

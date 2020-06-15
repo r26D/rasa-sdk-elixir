@@ -7,13 +7,15 @@ defmodule RasaSdk.Model.Entity do
   Entities within a message
   """
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :start,
     :end,
     :value,
     :entity,
-    :confidence
+    :confidence,
+    :role,
+    :group
   ]
 
   @type t :: %__MODULE__{
@@ -21,11 +23,13 @@ defmodule RasaSdk.Model.Entity do
     end: integer(),
     value: String.t,
     entity: String.t,
-    confidence: float() | nil
+    confidence: float() | nil,
+    role: String.t | nil,
+    group: String.t | nil
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Entity do
+defimpl Jason.Decoder, for: RasaSdk.Model.Entity do
   def decode(value, _options) do
     value
   end

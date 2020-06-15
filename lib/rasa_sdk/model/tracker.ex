@@ -10,7 +10,7 @@ defmodule RasaSdk.Model.Tracker do
   alias RasaSdk.Model.Event
   alias RasaSdk.Model.TrackerActiveForm
 
-  @derive [Poison.Encoder]
+  @derive [Jason.Encoder]
   defstruct [
     :conversation_id,
     :slots,
@@ -38,7 +38,7 @@ defmodule RasaSdk.Model.Tracker do
   }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Tracker do
+defimpl Jason.Decoder, for: RasaSdk.Model.Tracker do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value
