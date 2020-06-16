@@ -8,7 +8,7 @@ defmodule RasaSdk.Model.Request do
   """
   alias RasaSdk.Model.Tracker
 
-  @derive [Jason.Encoder]
+  @derive [Poison.Encoder]
   defstruct [
     :next_action,
     :sender_id,
@@ -22,7 +22,7 @@ defmodule RasaSdk.Model.Request do
   }
 end
 
-defimpl Jason.Encoder, for: RasaSdk.Model.Request do
+defimpl Poison.Decoder, for: RasaSdk.Model.Request do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

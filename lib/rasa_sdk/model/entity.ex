@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.Entity do
   Entities within a message
   """
 
-  @derive [Jason.Encoder]
+  @derive [Poison.Encoder]
   defstruct [
     :start,
     :end,
@@ -29,7 +29,7 @@ defmodule RasaSdk.Model.Entity do
   }
 end
 
-defimpl Jason.Encoder, for: RasaSdk.Model.Entity do
+defimpl Poison.Decoder, for: RasaSdk.Model.Entity do
   def decode(value, _options) do
     value
   end

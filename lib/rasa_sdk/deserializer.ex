@@ -13,7 +13,7 @@ defmodule RasaSdk.Deserializer do
   def deserialize(model, field, :list, mod, options) do
     if Code.ensure_loaded?(mod) do
       model
-      |> Map.update!(field, &(Jason.Decode.decode(&1, Keyword.merge(options, [as: [struct(mod)]]))))
+      |> Map.update!(field, &(Poison.Decode.decode(&1, Keyword.merge(options, [as: [struct(mod)]]))))
     else
       model
     end
@@ -21,7 +21,7 @@ defmodule RasaSdk.Deserializer do
   def deserialize(model, field, :struct, mod, options) do
     if Code.ensure_loaded?(mod) do
       model
-      |> Map.update!(field, &(Jason.Decode.decode(&1, Keyword.merge(options, [as: struct(mod)]))))
+      |> Map.update!(field, &(Poison.Decode.decode(&1, Keyword.merge(options, [as: struct(mod)]))))
     else
       model
     end
@@ -29,7 +29,7 @@ defmodule RasaSdk.Deserializer do
   def deserialize(model, field, :map, mod, options) do
     if Code.ensure_loaded?(mod) do
       model
-      |> Map.update!(field, &(Map.new(&1, fn {key, val} -> {key, Jason.Decode.decode(val, Keyword.merge(options, [as: struct(mod)]))} end)))
+      |> Map.update!(field, &(Map.new(&1, fn {key, val} -> {key, Poison.Decode.decode(val, Keyword.merge(options, [as: struct(mod)]))} end)))
     else
       model
     end

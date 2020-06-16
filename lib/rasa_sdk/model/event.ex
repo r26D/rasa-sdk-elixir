@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.Event do
   
   """
 
-  @derive [Jason.Encoder]
+  @derive [Poison.Encoder]
   defstruct [
     :event,
     :timestamp
@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.Event do
   }
 end
 
-defimpl Jason.Encoder, for: RasaSdk.Model.Event do
+defimpl Poison.Decoder, for: RasaSdk.Model.Event do
   def decode(value, _options) do
     value
   end

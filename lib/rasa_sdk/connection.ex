@@ -12,7 +12,7 @@ defmodule RasaSdk.Connection do
   # Add any middleware here (authentication)
   plug Tesla.Middleware.BaseUrl, "http://localhost:5055/webhook"
   plug Tesla.Middleware.Headers, [{"user-agent", "Elixir"}]
-  plug Tesla.Middleware.EncodeJson, engine: Jason
+  plug Tesla.Middleware.EncodeJson, engine: Poison
 
   @doc """
   Configure an authless client connection

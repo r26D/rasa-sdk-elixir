@@ -36,9 +36,11 @@ defmodule RasaSdk.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
-      {:tesla, "~> 1.2"},
-      {:jason, "~> 1.2"},
-      {:plug, "~> 1.8"}
+      {:tesla, "~> 1.3"},
+      {:poison, "~> 3.1"},
+                {:plug_crypto, "~> 1.1.2"},
+      #{:jason, "~> 1.2"},
+      {:plug, "~> 1.10"}
     ]
   end
 end

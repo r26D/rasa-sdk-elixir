@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.SlotValue do
   
   """
 
-  @derive [Jason.Encoder]
+  @derive [Poison.Encoder]
   defstruct [
     
   ]
@@ -17,7 +17,7 @@ defmodule RasaSdk.Model.SlotValue do
   }
 end
 
-defimpl Jason.Encoder, for: RasaSdk.Model.SlotValue do
+defimpl Poison.Decoder, for: RasaSdk.Model.SlotValue do
   def decode(value, _options) do
     value
   end

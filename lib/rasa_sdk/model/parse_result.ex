@@ -10,7 +10,7 @@ defmodule RasaSdk.Model.ParseResult do
   alias RasaSdk.Model.Intent
   alias RasaSdk.Model.Intent
 
-  @derive [Jason.Encoder]
+  @derive [Poison.Encoder]
   defstruct [
     :entities,
     :intent,
@@ -26,7 +26,7 @@ defmodule RasaSdk.Model.ParseResult do
   }
 end
 
-defimpl Jason.Encoder, for: RasaSdk.Model.ParseResult do
+defimpl Poison.Decoder, for: RasaSdk.Model.ParseResult do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

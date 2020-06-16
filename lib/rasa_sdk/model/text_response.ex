@@ -7,7 +7,7 @@ defmodule RasaSdk.Model.TextResponse do
   Text which the bot should utter.
   """
 
-  @derive [Jason.Encoder]
+  @derive [Poison.Encoder]
   defstruct [
     :text
   ]
@@ -17,7 +17,7 @@ defmodule RasaSdk.Model.TextResponse do
   }
 end
 
-defimpl Jason.Encoder, for: RasaSdk.Model.TextResponse do
+defimpl Poison.Decoder, for: RasaSdk.Model.TextResponse do
   def decode(value, _options) do
     value
   end
