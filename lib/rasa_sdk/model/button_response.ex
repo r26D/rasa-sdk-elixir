@@ -20,7 +20,7 @@ defmodule RasaSdk.Model.ButtonResponse do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.ButtonResponse do
+defimpl Jason.Encoder, for: RasaSdk.Model.ButtonResponse do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

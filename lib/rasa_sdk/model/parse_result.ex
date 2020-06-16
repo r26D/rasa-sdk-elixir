@@ -26,7 +26,7 @@ defmodule RasaSdk.Model.ParseResult do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.ParseResult do
+defimpl Jason.Encoder, for: RasaSdk.Model.ParseResult do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

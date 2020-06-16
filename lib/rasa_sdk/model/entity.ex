@@ -29,7 +29,7 @@ defmodule RasaSdk.Model.Entity do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.Entity do
+defimpl Jason.Encoder, for: RasaSdk.Model.Entity do
   def decode(value, _options) do
     value
   end

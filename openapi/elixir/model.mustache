@@ -24,7 +24,7 @@
   }
 end
 
-defimpl Jason.Decoder, for: {{moduleName}}.Model.{{classname}} do
+defimpl Jason.Encoder, for: {{moduleName}}.Model.{{classname}} do
 {{#hasComplexVars}}
   import {{moduleName}}.Deserializer
   def decode(value, options) do

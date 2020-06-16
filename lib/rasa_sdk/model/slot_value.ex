@@ -17,7 +17,7 @@ defmodule RasaSdk.Model.SlotValue do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.SlotValue do
+defimpl Jason.Encoder, for: RasaSdk.Model.SlotValue do
   def decode(value, _options) do
     value
   end

@@ -17,7 +17,7 @@ defmodule RasaSdk.Model.TextResponse do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.TextResponse do
+defimpl Jason.Encoder, for: RasaSdk.Model.TextResponse do
   def decode(value, _options) do
     value
   end

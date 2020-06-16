@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.Button do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.Button do
+defimpl Jason.Encoder, for: RasaSdk.Model.Button do
   def decode(value, _options) do
     value
   end

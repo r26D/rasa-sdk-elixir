@@ -22,7 +22,7 @@ defmodule RasaSdk.Model.Response do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.Response do
+defimpl Jason.Encoder, for: RasaSdk.Model.Response do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

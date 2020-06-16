@@ -38,7 +38,7 @@ defmodule RasaSdk.Model.Tracker do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.Tracker do
+defimpl Jason.Encoder, for: RasaSdk.Model.Tracker do
   import RasaSdk.Deserializer
   def decode(value, options) do
     value

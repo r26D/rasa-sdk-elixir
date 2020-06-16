@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.TrackerActiveForm do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.TrackerActiveForm do
+defimpl Jason.Encoder, for: RasaSdk.Model.TrackerActiveForm do
   def decode(value, _options) do
     value
   end

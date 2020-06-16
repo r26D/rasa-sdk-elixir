@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.ResponseRejected do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.ResponseRejected do
+defimpl Jason.Encoder, for: RasaSdk.Model.ResponseRejected do
   def decode(value, _options) do
     value
   end

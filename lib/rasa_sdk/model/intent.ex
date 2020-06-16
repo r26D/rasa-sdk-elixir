@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.Intent do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.Intent do
+defimpl Jason.Encoder, for: RasaSdk.Model.Intent do
   def decode(value, _options) do
     value
   end

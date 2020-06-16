@@ -19,7 +19,7 @@ defmodule RasaSdk.Model.Event do
   }
 end
 
-defimpl Jason.Decoder, for: RasaSdk.Model.Event do
+defimpl Jason.Encoder, for: RasaSdk.Model.Event do
   def decode(value, _options) do
     value
   end
