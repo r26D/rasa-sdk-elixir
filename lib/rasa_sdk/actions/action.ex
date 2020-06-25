@@ -9,6 +9,11 @@ defmodule RasaSdk.Actions.Action do
       @behaviour RasaSdk.Actions.Action
       import RasaSdk.Actions.Context
       import RasaSdk.Actions.Events
+
+      def name() do
+        "#{__MODULE__}"|>String.split(".")|>Enum.reverse|>Enum.at(0)|>Macro.underscore()
+      end
+      defoverridable  name: 0
     end
   end
 end

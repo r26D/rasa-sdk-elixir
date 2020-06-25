@@ -24,6 +24,10 @@ defmodule RasaSdk.Actions.FormAction do
       # to do the form handling
       @requested_slot "requested_slot"
 
+      def name() do
+        "#{__MODULE__}"|>String.split(".")|>Enum.reverse|>Enum.at(0)|>Macro.underscore()
+      end
+
       # default implementation, overridable
       def on_activate(context), do: context
 
@@ -405,6 +409,7 @@ defmodule RasaSdk.Actions.FormAction do
 
       defoverridable on_activate: 1,
                      slot_mappings: 0,
+                    name: 0,
                      validate: 1,
                      validate_slot: 3,
                      request_slot: 2
