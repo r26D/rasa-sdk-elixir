@@ -8,14 +8,14 @@ defmodule RasaSdk.Actions.Plug do
     options
   end
 
-  def call(%Plug.Conn{body_params: body_params} = conn, _opts) do
+  def call(%Plug.Conn{body_params: body_params} = conn, opts) do
     context =
       body_params
       |> Poison.Decode.decode(as: %RasaSdk.Model.Request{})
       |> Context.new()
 
     try do
-      send_response(conn, Registry.execute(context))
+      send_response(conn, Registry.execute(context, opts))
     rescue
       error ->
         formatted_error = Exception.format(:error, error, __STACKTRACE__)
