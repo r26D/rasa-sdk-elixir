@@ -47,3 +47,4 @@ erl_crash.dump
 modules.xml
 .idea/misc.xml
 *.ipr
+*.tar
