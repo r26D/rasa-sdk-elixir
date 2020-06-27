@@ -13,7 +13,11 @@ defmodule RasaSdk.Actions.Action do
       def name() do
         "#{__MODULE__}"|>String.split(".")|>Enum.reverse|>Enum.at(0)|>Macro.underscore()
       end
-      defoverridable  name: 0
+      def run(%Context{} = context) do
+        context
+      end
+      defoverridable  name: 0,
+                      run: 1
     end
   end
 end
