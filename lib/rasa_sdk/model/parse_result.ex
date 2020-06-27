@@ -2,13 +2,13 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.ParseResult do
+defmodule RasaSDK.Model.ParseResult do
   @moduledoc """
   NLU parser information. If set, message will not be passed through NLU, but instead this parsing information will be used.
   """
-  alias RasaSdk.Model.Entity
-  alias RasaSdk.Model.Intent
-  alias RasaSdk.Model.Intent
+  alias RasaSDK.Model.Entity
+  alias RasaSDK.Model.Intent
+  alias RasaSDK.Model.Intent
 
   @derive [Poison.Encoder]
   defstruct [
@@ -19,20 +19,20 @@ defmodule RasaSdk.Model.ParseResult do
   ]
 
   @type t :: %__MODULE__{
-    entities: [Entity] | nil,
-    intent: Intent | nil,
-    intent_ranking: [Intent] | nil,
-    text: String.t
-  }
+          entities: [Entity] | nil,
+          intent: Intent | nil,
+          intent_ranking: [Intent] | nil,
+          text: String.t()
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.ParseResult do
-  import RasaSdk.Deserializer
+defimpl Poison.Decoder, for: RasaSDK.Model.ParseResult do
+  import RasaSDK.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:entities, :list, RasaSdk.Model.Entity, options)
-    |> deserialize(:intent, :struct, RasaSdk.Model.Intent, options)
-    |> deserialize(:intent_ranking, :list, RasaSdk.Model.Intent, options)
+    |> deserialize(:entities, :list, RasaSDK.Model.Entity, options)
+    |> deserialize(:intent, :struct, RasaSDK.Model.Intent, options)
+    |> deserialize(:intent_ranking, :list, RasaSDK.Model.Intent, options)
   end
 end
-

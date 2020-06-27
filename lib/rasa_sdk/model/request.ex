@@ -2,11 +2,11 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.Request do
+defmodule RasaSDK.Model.Request do
   @moduledoc """
   Describes the action to be called and provides information on the current state of the conversation.
   """
-  alias RasaSdk.Model.Tracker
+  alias RasaSDK.Model.Tracker
 
   @derive [Poison.Encoder]
   defstruct [
@@ -16,17 +16,17 @@ defmodule RasaSdk.Model.Request do
   ]
 
   @type t :: %__MODULE__{
-    next_action: String.t | nil,
-    sender_id: String.t | nil,
-    tracker: Tracker | nil
-  }
+          next_action: String.t() | nil,
+          sender_id: String.t() | nil,
+          tracker: Tracker | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Request do
-  import RasaSdk.Deserializer
+defimpl Poison.Decoder, for: RasaSDK.Model.Request do
+  import RasaSDK.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:tracker, :struct, RasaSdk.Model.Tracker, options)
+    |> deserialize(:tracker, :struct, RasaSDK.Model.Tracker, options)
   end
 end
-

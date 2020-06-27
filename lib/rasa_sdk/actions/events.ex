@@ -1,4 +1,4 @@
-defmodule RasaSdk.Actions.Events do
+defmodule RasaSDK.Actions.Events do
   def user_uttered(text, parse_data, input_channel, timestamp \\ nil) do
     %{
       event: "user",

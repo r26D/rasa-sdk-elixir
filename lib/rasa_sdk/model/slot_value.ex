@@ -2,24 +2,19 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.SlotValue do
+defmodule RasaSDK.Model.SlotValue do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
-  defstruct [
-    
-  ]
+  defstruct []
 
-  @type t :: %__MODULE__{
-    
-  }
+  @type t :: %__MODULE__{}
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.SlotValue do
+defimpl Poison.Decoder, for: RasaSDK.Model.SlotValue do
   def decode(value, _options) do
     value
   end
 end
-

@@ -2,13 +2,13 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.Domain do
+defmodule RasaSDK.Model.Domain do
   @moduledoc """
   The bot&#39;s domain.
   """
-  alias RasaSdk.Model.DomainConfig
-  alias RasaSdk.Model.SlotDescription
-  alias RasaSdk.Model.TemplateDescription
+  alias RasaSDK.Model.DomainConfig
+  alias RasaSDK.Model.SlotDescription
+  alias RasaSDK.Model.TemplateDescription
 
   @derive [Poison.Encoder]
   defstruct [
@@ -21,22 +21,22 @@ defmodule RasaSdk.Model.Domain do
   ]
 
   @type t :: %__MODULE__{
-    config: DomainConfig | nil,
-    intents: [Map] | nil,
-    entities: [String.t] | nil,
-    slots: %{optional(String.t) => SlotDescription} | nil,
-    responses: %{optional(String.t) => TemplateDescription} | nil,
-    actions: [String.t] | nil
-  }
+          config: DomainConfig | nil,
+          intents: [Map] | nil,
+          entities: [String.t()] | nil,
+          slots: %{optional(String.t()) => SlotDescription} | nil,
+          responses: %{optional(String.t()) => TemplateDescription} | nil,
+          actions: [String.t()] | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Domain do
-  import RasaSdk.Deserializer
+defimpl Poison.Decoder, for: RasaSDK.Model.Domain do
+  import RasaSDK.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:config, :struct, RasaSdk.Model.DomainConfig, options)
-    |> deserialize(:slots, :map, RasaSdk.Model.SlotDescription, options)
-    |> deserialize(:responses, :map, RasaSdk.Model.TemplateDescription, options)
+    |> deserialize(:config, :struct, RasaSDK.Model.DomainConfig, options)
+    |> deserialize(:slots, :map, RasaSDK.Model.SlotDescription, options)
+    |> deserialize(:responses, :map, RasaSDK.Model.TemplateDescription, options)
   end
 end
-

@@ -2,12 +2,12 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.ResponseOk do
+defmodule RasaSDK.Model.ResponseOk do
   @moduledoc """
   Action was executed succesfully.
   """
-  alias RasaSdk.Model.Event
-  alias RasaSdk.Model.Response
+  alias RasaSDK.Model.Event
+  alias RasaSDK.Model.Response
 
   @derive [Poison.Encoder]
   defstruct [
@@ -16,17 +16,17 @@ defmodule RasaSdk.Model.ResponseOk do
   ]
 
   @type t :: %__MODULE__{
-    events: [Event] | nil,
-    responses: [Response] | nil
-  }
+          events: [Event] | nil,
+          responses: [Response] | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.ResponseOk do
-  import RasaSdk.Deserializer
+defimpl Poison.Decoder, for: RasaSDK.Model.ResponseOk do
+  import RasaSDK.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:events, :list, RasaSdk.Model.Event, options)
-    |> deserialize(:responses, :list, RasaSdk.Model.Response, options)
+    |> deserialize(:events, :list, RasaSDK.Model.Event, options)
+    |> deserialize(:responses, :list, RasaSDK.Model.Response, options)
   end
 end
-

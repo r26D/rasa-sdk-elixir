@@ -1,15 +1,15 @@
-defmodule RasaSdkActionsTest do
+defmodule RasaSDKActionsTest do
   use ExUnit.Case
 
-  alias RasaSdk.Actions.{Action, Context, Events, FormAction}
-  alias RasaSdk.Model.Tracker
-  alias RasaSdk.Model.Request
-  # alias RasaSdk.Model.InlineResponse200, as: Response
-  alias RasaSdk.Model.ResponseRejected
+  alias RasaSDK.Actions.{Action, Context, Events, FormAction}
+  alias RasaSDK.Model.Tracker
+  alias RasaSDK.Model.Request
+  # alias RasaSDK.Model.InlineResponse200, as: Response
+  alias RasaSDK.Model.ResponseRejected
 
   defmodule CustomAction do
     @behaviour Action
-    import RasaSdk.Actions.Context
+    import RasaSDK.Actions.Context
 
     def name(), do: "custom_action"
 
@@ -37,7 +37,7 @@ defmodule RasaSdkActionsTest do
   end
 
   setup do
-    RasaSdk.Actions.Registry.register_actions([
+    RasaSDK.Actions.Registry.register_actions([
       CustomAction,
       CustomFormAction
     ])
@@ -48,7 +48,7 @@ defmodule RasaSdkActionsTest do
       context =
         %Request{next_action: "bogus_action"}
         |> Context.new()
-        |> RasaSdk.Actions.Registry.execute()
+        |> RasaSDK.Actions.Registry.execute()
 
       assert context.error == %ResponseRejected{
                action_name: "bogus_action",
@@ -60,7 +60,7 @@ defmodule RasaSdkActionsTest do
       context =
         %Request{next_action: "custom_action"}
         |> Context.new()
-        |> RasaSdk.Actions.Registry.execute()
+        |> RasaSDK.Actions.Registry.execute()
 
       assert context.response.events == [
                %{event: "slot", name: "test", timestamp: nil, value: "foo"},

@@ -1,8 +1,8 @@
-defmodule RasaSdk.Actions.FormAction do
-  alias RasaSdk.Actions.Context
-  alias RasaSdk.Model.Request
-  alias RasaSdk.Model.ResponseOk
-  alias RasaSdk.Model.{ParseResult, Tracker}
+defmodule RasaSDK.Actions.FormAction do
+  alias RasaSDK.Actions.Context
+  alias RasaSDK.Model.Request
+  alias RasaSDK.Model.ResponseOk
+  alias RasaSDK.Model.{ParseResult, Tracker}
 
   require Logger
 
@@ -14,9 +14,9 @@ defmodule RasaSdk.Actions.FormAction do
 
   defmacro __using__(_) do
     quote do
-      @behaviour RasaSdk.Actions.Action
-      import RasaSdk.Actions.Context
-      import RasaSdk.Actions.Events
+      @behaviour RasaSDK.Actions.Action
+      import RasaSDK.Actions.Context
+      import RasaSDK.Actions.Events
 
       require Logger
 
@@ -27,7 +27,7 @@ defmodule RasaSdk.Actions.FormAction do
       def name() do
         "#{__MODULE__}"
         |> String.split(".")
-        |> Enum.reverse
+        |> Enum.reverse()
         |> Enum.at(0)
         |> Macro.underscore()
       end
@@ -198,8 +198,7 @@ defmodule RasaSdk.Actions.FormAction do
                response: %ResponseOk{
                  events: events
                }
-             } =
-               context
+             } = context
            ) do
         Enum.reduce(
           events,
@@ -222,8 +221,7 @@ defmodule RasaSdk.Actions.FormAction do
                response: %ResponseOk{
                  events: events
                }
-             } =
-               context
+             } = context
            ) do
         if not Enum.member?(events, form(nil)) do
           slot_name = request_next_slot(context)
@@ -370,32 +368,30 @@ defmodule RasaSdk.Actions.FormAction do
 
         required_slots(context)
         |> Enum.reject(fn slot -> slot == slot_to_fill end)
-        |> Enum.flat_map(
-             fn slot ->
-               get_mappings_for_slot(slot)
-               |> Enum.map(fn mapping -> Map.put(mapping, :slot, slot) end)
-             end
-           )
+        |> Enum.flat_map(fn slot ->
+          get_mappings_for_slot(slot)
+          |> Enum.map(fn mapping -> Map.put(mapping, :slot, slot) end)
+        end)
         |> Enum.reduce(
-             %{},
-             fn mapping, acc ->
-               value = get_other_slot_value(mapping, context)
+          %{},
+          fn mapping, acc ->
+            value = get_other_slot_value(mapping, context)
 
-               if is_nil(value) do
-                 acc
-               else
-                 if mapping.overwrite do
-                   Map.put(acc, mapping.slot, value)
-                 else
-                   if is_nil(get_slot(context, mapping.slot)) do
-                     Map.put(acc, mapping.slot, value)
-                   else
-                     acc
-                   end
-                 end
-               end
-             end
-           )
+            if is_nil(value) do
+              acc
+            else
+              if mapping.overwrite do
+                Map.put(acc, mapping.slot, value)
+              else
+                if is_nil(get_slot(context, mapping.slot)) do
+                  Map.put(acc, mapping.slot, value)
+                else
+                  acc
+                end
+              end
+            end
+          end
+        )
       end
 
       defp get_other_slot_value(%{type: "from_entity"} = slot_mapping, context) do
@@ -413,7 +409,7 @@ defmodule RasaSdk.Actions.FormAction do
              } = context
            ) do
         if Map.get(tracker.active_form, :name) != name() and
-           intent_is_desired(slot_mapping, context) do
+             intent_is_desired(slot_mapping, context) do
           Map.get(slot_mapping, :value)
         end
       end
@@ -432,27 +428,29 @@ defmodule RasaSdk.Actions.FormAction do
 
         get_mappings_for_slot(slot_to_fill)
         |> Enum.reduce(
-             %{},
-             fn slot_mapping, res ->
-               Logger.debug("Got mapping #{inspect(slot_mapping)}")
+          %{},
+          fn slot_mapping, res ->
+            Logger.debug("Got mapping #{inspect(slot_mapping)}")
 
-               if is_nil(Map.get(res, slot_to_fill)) and intent_is_desired(slot_mapping, context) do
-                 case get_requested_slot_value(slot_mapping, context) do
-                   nil ->
-                     res
+            if is_nil(Map.get(res, slot_to_fill)) and intent_is_desired(slot_mapping, context) do
+              case get_requested_slot_value(slot_mapping, context) do
+                nil ->
+                  res
 
-                   value ->
-                     Logger.debug(
-                       "Successfully extracted '#{inspect(value)}' for requested slot '#{slot_to_fill}'"
-                     )
+                value ->
+                  Logger.debug(
+                    "Successfully extracted '#{inspect(value)}' for requested slot '#{
+                      slot_to_fill
+                    }'"
+                  )
 
-                     Map.put(res, slot_to_fill, value)
-                 end
-               else
-                 res
-               end
-             end
-           )
+                  Map.put(res, slot_to_fill, value)
+              end
+            else
+              res
+            end
+          end
+        )
       end
 
       defp get_requested_slot_value(%{type: "from_entity"} = slot_mapping, context) do
@@ -488,13 +486,11 @@ defmodule RasaSdk.Actions.FormAction do
         |> add_event(slot_set(@requested_slot, nil))
       end
 
-      defp is_deactivated(
-             %Context{
-               response: %{
-                 events: events
-               }
+      defp is_deactivated(%Context{
+             response: %{
+               events: events
              }
-           ) do
+           }) do
         !is_nil(Enum.find_index(events, &(&1.event == "form" and &1.name == nil)))
       end
 

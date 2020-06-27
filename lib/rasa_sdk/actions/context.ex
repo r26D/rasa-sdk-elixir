@@ -1,8 +1,8 @@
-defmodule RasaSdk.Actions.Context do
-  alias RasaSdk.Model.{ParseResult, Tracker}
-  alias RasaSdk.Model.Request
-  alias RasaSdk.Model.ResponseOk
-  alias RasaSdk.Model.ResponseRejected
+defmodule RasaSDK.Actions.Context do
+  alias RasaSDK.Model.{ParseResult, Tracker}
+  alias RasaSDK.Model.Request
+  alias RasaSDK.Model.ResponseOk
+  alias RasaSDK.Model.ResponseRejected
 
   require Logger
 
@@ -32,18 +32,17 @@ defmodule RasaSdk.Actions.Context do
   @doc """
   Return the conversation_id of the conversation
   """
-  #https://github.com/RasaHQ/rasa/issues/6062
-  #https://forum.rasa.com/t/conversation-and-sender-id/21890/4 sender_id and conversation_id are the same thing - but not both are being set
- # def conversation_id(%__MODULE__{request: %Request{tracker: %Tracker{conversation_id: conversation_id}}}),
-  def conversation_id(%__MODULE__{request: %Request{ sender_id: conversation_id }}),
-      do: conversation_id
+  # https://github.com/RasaHQ/rasa/issues/6062
+  # https://forum.rasa.com/t/conversation-and-sender-id/21890/4 sender_id and conversation_id are the same thing - but not both are being set
+  # def conversation_id(%__MODULE__{request: %Request{tracker: %Tracker{conversation_id: conversation_id}}}),
+  def conversation_id(%__MODULE__{request: %Request{sender_id: conversation_id}}),
+    do: conversation_id
 
   @doc """
   Return the currently set values of the slots
   """
   def current_slot_values(%__MODULE__{request: %Request{tracker: %Tracker{slots: slots}}}),
     do: slots
-
 
   @doc """
   Retrieves the value of a slot.

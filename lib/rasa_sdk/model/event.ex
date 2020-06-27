@@ -2,9 +2,9 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.Event do
+defmodule RasaSDK.Model.Event do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
@@ -14,14 +14,13 @@ defmodule RasaSdk.Model.Event do
   ]
 
   @type t :: %__MODULE__{
-    event: String.t,
-    timestamp: integer() | nil
-  }
+          event: String.t(),
+          timestamp: integer() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Event do
+defimpl Poison.Decoder, for: RasaSDK.Model.Event do
   def decode(value, _options) do
     value
   end
 end
-

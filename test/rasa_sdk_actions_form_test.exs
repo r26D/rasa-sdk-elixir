@@ -1,9 +1,9 @@
-defmodule RasaSdkActionsFormTest do
+defmodule RasaSDKActionsFormTest do
   use ExUnit.Case
 
-  alias RasaSdk.Actions.{Context, Events, FormAction}
-  alias RasaSdk.Model.{Entity, Intent, ParseResult, Tracker}
-  alias RasaSdk.Model.Request
+  alias RasaSDK.Actions.{Context, Events, FormAction}
+  alias RasaSDK.Model.{Entity, Intent, ParseResult, Tracker}
+  alias RasaSDK.Model.Request
 
   defmodule SlotFromEntityNoIntent do
     use FormAction
@@ -220,7 +220,7 @@ defmodule RasaSdkActionsFormTest do
   end
 
   setup do
-    RasaSdk.Actions.Registry.register_actions([
+    RasaSDK.Actions.Registry.register_actions([
       SlotFromEntityNoIntent,
       SlotFromEntityWithIntent,
       SlotFromEntityWithNotIntent,

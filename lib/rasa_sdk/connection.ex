@@ -2,17 +2,17 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Connection do
+defmodule RasaSDK.Connection do
   @moduledoc """
-  Handle Tesla connections for RasaSdk.
+  Handle Tesla connections for RasaSDK.
   """
 
   use Tesla
 
   # Add any middleware here (authentication)
-  plug Tesla.Middleware.BaseUrl, "http://localhost:5055/webhook"
-  plug Tesla.Middleware.Headers, [{"user-agent", "Elixir"}]
-  plug Tesla.Middleware.EncodeJson, engine: Poison
+  plug(Tesla.Middleware.BaseUrl, "http://localhost:5055/webhook")
+  plug(Tesla.Middleware.Headers, [{"user-agent", "Elixir"}])
+  plug(Tesla.Middleware.EncodeJson, engine: Poison)
 
   @doc """
   Configure an authless client connection
@@ -21,7 +21,7 @@ defmodule RasaSdk.Connection do
 
   Tesla.Env.client
   """
-  @spec new() :: Tesla.Env.client
+  @spec new() :: Tesla.Env.client()
   def new do
     Tesla.client([])
   end

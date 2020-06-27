@@ -1,21 +1,23 @@
-defmodule RasaSDK.Actions.Plug do
+defmodule RasaSDK.Callbacks.Plug do
+  @moduledoc """
+  The rasa client can be configured to do call back - this module process those requests
+  https://rasa.com/docs/rasa/user-guide/connectors/your-own-website/#rest-channels
+  This ended up here instead of the Sdk because it is processing the same data that the Sdk generates.
+  """
   import Plug.Conn
-  alias RasaSDK.Actions.{Context, Registry}
+  alias RasaSDK.Callbacks.Context
   require Logger
 
-  def init(options) do
-    # initialize options
-    options
-  end
+  def init(opts), do: opts
 
-  def call(%Plug.Conn{body_params: body_params} = conn, opts) do
+  def call(%Plug.Conn{body_params: body_params} = conn, handler_module: handler_module) do
     context =
       body_params
-      |> Poison.Decode.decode(as: %RasaSDK.Model.Request{})
+      |> Poison.Decode.decode(as: %RasaSDK.Model.CallbackRequest{})
       |> Context.new()
 
     try do
-      send_response(conn, Registry.execute(context, opts))
+      send_response(conn, handler_module.run(context))
     rescue
       error ->
         formatted_error = Exception.format(:error, error, __STACKTRACE__)

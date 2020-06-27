@@ -2,7 +2,7 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.Entity do
+defmodule RasaSDK.Model.Entity do
   @moduledoc """
   Entities within a message
   """
@@ -19,19 +19,18 @@ defmodule RasaSdk.Model.Entity do
   ]
 
   @type t :: %__MODULE__{
-    start: integer(),
-    end: integer(),
-    value: String.t,
-    entity: String.t,
-    confidence: float() | nil,
-    role: String.t | nil,
-    group: String.t | nil
-  }
+          start: integer(),
+          end: integer(),
+          value: String.t(),
+          entity: String.t(),
+          confidence: float() | nil,
+          role: String.t() | nil,
+          group: String.t() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Entity do
+defimpl Poison.Decoder, for: RasaSDK.Model.Entity do
   def decode(value, _options) do
     value
   end
 end
-

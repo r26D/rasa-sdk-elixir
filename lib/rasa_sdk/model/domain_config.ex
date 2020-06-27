@@ -2,7 +2,7 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.DomainConfig do
+defmodule RasaSDK.Model.DomainConfig do
   @moduledoc """
   Addional option
   """
@@ -13,13 +13,12 @@ defmodule RasaSdk.Model.DomainConfig do
   ]
 
   @type t :: %__MODULE__{
-    store_entities_as_slots: boolean() | nil
-  }
+          store_entities_as_slots: boolean() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.DomainConfig do
+defimpl Poison.Decoder, for: RasaSDK.Model.DomainConfig do
   def decode(value, _options) do
     value
   end
 end
-

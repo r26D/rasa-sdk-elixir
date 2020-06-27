@@ -2,11 +2,11 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.ButtonResponse do
+defmodule RasaSDK.Model.ButtonResponse do
   @moduledoc """
   Text with buttons which should be sent to the user.
   """
-  alias RasaSdk.Model.Button
+  alias RasaSDK.Model.Button
 
   @derive [Poison.Encoder]
   defstruct [
@@ -15,16 +15,16 @@ defmodule RasaSdk.Model.ButtonResponse do
   ]
 
   @type t :: %__MODULE__{
-    text: String.t | nil,
-    buttons: [Button] | nil
-  }
+          text: String.t() | nil,
+          buttons: [Button] | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.ButtonResponse do
-  import RasaSdk.Deserializer
+defimpl Poison.Decoder, for: RasaSDK.Model.ButtonResponse do
+  import RasaSDK.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:buttons, :list, RasaSdk.Model.Button, options)
+    |> deserialize(:buttons, :list, RasaSDK.Model.Button, options)
   end
 end
-

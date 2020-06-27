@@ -2,7 +2,7 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.Intent do
+defmodule RasaSDK.Model.Intent do
   @moduledoc """
   Intent of the text
   """
@@ -14,14 +14,13 @@ defmodule RasaSdk.Model.Intent do
   ]
 
   @type t :: %__MODULE__{
-    confidence: float(),
-    name: String.t
-  }
+          confidence: float(),
+          name: String.t()
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.Intent do
+defimpl Poison.Decoder, for: RasaSDK.Model.Intent do
   def decode(value, _options) do
     value
   end
 end
-

@@ -5,4 +5,4 @@ openapi-generator generate \
   -i ./openapi/specs/action-server.yml \
   -o ./ \
   -t ./openapi/elixir \
-  --additional-properties=invokerPackage=RasaSdk
+  --additional-properties=invokerPackage=RasaSDK

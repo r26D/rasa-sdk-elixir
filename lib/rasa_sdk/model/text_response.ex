@@ -2,7 +2,7 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.TextResponse do
+defmodule RasaSDK.Model.TextResponse do
   @moduledoc """
   Text which the bot should utter.
   """
@@ -13,13 +13,12 @@ defmodule RasaSdk.Model.TextResponse do
   ]
 
   @type t :: %__MODULE__{
-    text: String.t
-  }
+          text: String.t()
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.TextResponse do
+defimpl Poison.Decoder, for: RasaSDK.Model.TextResponse do
   def decode(value, _options) do
     value
   end
 end
-

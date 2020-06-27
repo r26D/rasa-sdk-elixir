@@ -2,7 +2,7 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.TrackerActiveForm do
+defmodule RasaSDK.Model.TrackerActiveForm do
   @moduledoc """
   Name of the active form
   """
@@ -14,14 +14,13 @@ defmodule RasaSdk.Model.TrackerActiveForm do
   ]
 
   @type t :: %__MODULE__{
-    name: String.t | nil,
-    validate: boolean() | nil
-  }
+          name: String.t() | nil,
+          validate: boolean() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.TrackerActiveForm do
+defimpl Poison.Decoder, for: RasaSDK.Model.TrackerActiveForm do
   def decode(value, _options) do
     value
   end
 end
-

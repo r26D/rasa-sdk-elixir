@@ -5,6 +5,6 @@ docker run --rm --volume "${PWD}:/local" openapitools/openapi-generator-cli:v4.3
     -g elixir \
     -t /local/openapi/elixir \
     -o /local \
-    --additional-properties=invokerPackage=RasaSdk
+    --additional-properties=invokerPackage=RasaSDK
 
 

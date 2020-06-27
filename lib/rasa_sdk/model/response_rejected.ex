@@ -2,7 +2,7 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Model.ResponseRejected do
+defmodule RasaSDK.Model.ResponseRejected do
   @moduledoc """
   Action execution was rejected. This is the same as returning an &#x60;ActionExecutionRejected&#x60; event.
   """
@@ -14,14 +14,13 @@ defmodule RasaSdk.Model.ResponseRejected do
   ]
 
   @type t :: %__MODULE__{
-    action_name: String.t | nil,
-    error: String.t | nil
-  }
+          action_name: String.t() | nil,
+          error: String.t() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: RasaSdk.Model.ResponseRejected do
+defimpl Poison.Decoder, for: RasaSDK.Model.ResponseRejected do
   def decode(value, _options) do
     value
   end
 end
-

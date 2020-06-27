@@ -2,14 +2,13 @@
 # https://openapi-generator.tech
 # Do not edit the class manually.
 
-defmodule RasaSdk.Api.Default do
+defmodule RasaSDK.Api.Default do
   @moduledoc """
   API calls for all endpoints tagged `Default`.
   """
 
-  alias RasaSdk.Connection
-  import RasaSdk.RequestBuilder
-
+  alias RasaSDK.Connection
+  import RasaSDK.RequestBuilder
 
   @doc """
   Core request to execute a custom action
@@ -17,15 +16,16 @@ defmodule RasaSdk.Api.Default do
 
   ## Parameters
 
-  - connection (RasaSdk.Connection): Connection to server
+  - connection (RasaSDK.Connection): Connection to server
   - request (Request): Describes the action to be called and provides information on the current state of the conversation.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
-  {:ok, %RasaSdk.Model.ResponseOk{}} on success
+  {:ok, %RasaSDK.Model.ResponseOk{}} on success
   {:error, info} on failure
   """
-  @spec call_action(Tesla.Env.client, RasaSdk.Model.Request.t, keyword()) :: {:ok, RasaSdk.Model.ResponseOk.t} | {:error, Tesla.Env.t}
+  @spec call_action(Tesla.Env.client(), RasaSDK.Model.Request.t(), keyword()) ::
+          {:ok, RasaSDK.Model.ResponseOk.t()} | {:error, Tesla.Env.t()}
   def call_action(connection, request, _opts \\ []) do
     %{}
     |> method(:post)
@@ -34,9 +34,9 @@ defmodule RasaSdk.Api.Default do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %RasaSdk.Model.ResponseOk{}},
-      { 400, %RasaSdk.Model.ResponseRejected{}},
-      { 500, false}
+      {200, %RasaSDK.Model.ResponseOk{}},
+      {400, %RasaSDK.Model.ResponseRejected{}},
+      {500, false}
     ])
   end
 end
