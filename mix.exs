@@ -18,12 +18,12 @@ defmodule RasaSdk.Mixfile do
     ]
   end
   defp description do
-   """
-      Rasa is an open source machine learning framework to automate text-and voice-based conversations.
-      https://github.com/RasaHQ/rasa
+    """
+       Rasa is an open source machine learning framework to automate text-and voice-based conversations.
+       https://github.com/RasaHQ/rasa
 
-      This library provides tools to communicate and control a Rasa application from Elixir.
-   """
+       This library provides tools to communicate and control a Rasa application from Elixir.
+    """
 
   end
   defp package do
@@ -56,6 +56,7 @@ defmodule RasaSdk.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:tesla, "~> 1.3"},
       {:poison, "~> 4.0.1"},
       {:plug_crypto, "~> 1.1.2"},
