@@ -1,5 +1,14 @@
 # RasaSdk
 
+**This is not an OFFICIAL SDK**
+
+This code is based on the OpenAPI specification and
+other documentation available on their website, but
+none of the maintainers work for Rasa.
+
+
+
+
 API of the action server which is used by Rasa to execute custom actions.
 
 
