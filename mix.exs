@@ -68,4 +68,9 @@ defmodule RasaSDK.Mixfile do
       {:plug, "~> 1.10"}
     ]
   end
+  defp aliases do
+  [
+    tag: "cmd git tag -a v#{@version} -m 'Version #{@version}';cmd git push origin v#{@version}"
+  ]
+  end
 end
