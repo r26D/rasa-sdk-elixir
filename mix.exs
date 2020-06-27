@@ -62,7 +62,7 @@ defmodule RasaSDK.Mixfile do
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:tesla, "~> 1.3"},
-      {:poison, "~> 4.0.1"},
+      {:poison, "~> 3.1.0"},
       {:plug_crypto, "~> 1.1.2"},
       # {:jason, "~> 1.2"},
       {:plug, "~> 1.10"}

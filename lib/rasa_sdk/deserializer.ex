@@ -10,7 +10,7 @@ defmodule RasaSDK.Deserializer do
   @doc """
   Update the provided model with a deserialization of a nested value
   """
-  def deserialize(model, field, :map, options) do
+  def deserialize(model, field, :map, _options) do
     model
     |> Map.get_and_update!(
       field,
