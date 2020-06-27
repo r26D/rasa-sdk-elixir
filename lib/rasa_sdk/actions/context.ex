@@ -30,10 +30,20 @@ defmodule RasaSdk.Actions.Context do
   end
 
   @doc """
+  Return the conversation_id of the conversation
+  """
+  #https://github.com/RasaHQ/rasa/issues/6062
+  #https://forum.rasa.com/t/conversation-and-sender-id/21890/4 sender_id and conversation_id are the same thing - but not both are being set
+ # def conversation_id(%__MODULE__{request: %Request{tracker: %Tracker{conversation_id: conversation_id}}}),
+  def conversation_id(%__MODULE__{request: %Request{ sender_id: conversation_id }}),
+      do: conversation_id
+
+  @doc """
   Return the currently set values of the slots
   """
   def current_slot_values(%__MODULE__{request: %Request{tracker: %Tracker{slots: slots}}}),
     do: slots
+
 
   @doc """
   Retrieves the value of a slot.
