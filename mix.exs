@@ -16,7 +16,7 @@ defmodule RasaSDK.Mixfile do
       description: description(),
       package: package(),
       deps: deps(),
-      docs: [source_ref: "v#{@version}", main: "readme", extras: ["README.md", "LICENSE.txt"]]
+      docs: [source_ref: "v#{@version}", main: "readme", extras: ["README.md", "LICENSE.md"]]
     ]
   end
 
