@@ -1,10 +1,10 @@
 defmodule RasaSdk.Mixfile do
   use Mix.Project
-
+  @version "0.0.1"
   def project do
     [
       app: :rasa_sdk,
-      version: "0.0.1",
+      version:  @version,
       build_path: "./_build",
       config_path: "./config/config.exs",
       deps_path: "./deps",
@@ -14,7 +14,8 @@ defmodule RasaSdk.Mixfile do
       start_permanent: Mix.env() == :prod,
       description: description(),
       package: package(),
-      deps: deps()
+      deps: deps(),
+      docs: [source_ref: "v#{@version}", main: "readme", extras: ["README.md", "LICENSE.txt"]],
     ]
   end
   defp description do
