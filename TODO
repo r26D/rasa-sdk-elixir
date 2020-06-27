@@ -1,2 +1,6 @@
 Migrate to Jason from Poison
 Add support for prefixes to the url to route for different bots
+Merge in NLG
+Merge in Callback
+Add a rest client
+Add Insomnia examples
