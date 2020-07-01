@@ -46,7 +46,9 @@ defimpl Poison.Decoder, for: RasaSDK.Model.Tracker do
   def decode(value, options) do
     value
     |> deserialize(:latest_message, :struct, RasaSDK.Model.ParseResult, options)
-    |> deserialize(:events, :list, RasaSDK.Model.Event, options)
+    |>  RasaSDK.Model.Event.deserialize_events(:events, options)
     |> deserialize(:active_form, :struct, RasaSDK.Model.TrackerActiveForm, options)
   end
+
+
 end

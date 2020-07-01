@@ -11,7 +11,11 @@ defmodule RasaSDK.Responses.Response do
       import RasaSDK.Responses.Context
 
       def name() do
-        "#{__MODULE__}" |> String.split(".") |> Enum.reverse() |> Enum.at(0) |> Macro.underscore()
+        "#{__MODULE__}"
+        |> String.split(".")
+        |> Enum.reverse()
+        |> Enum.at(0)
+        |> Macro.underscore()
       end
 
       def preprocess(%Context{} = context), do: context
@@ -24,10 +28,12 @@ defmodule RasaSDK.Responses.Response do
         case simple_text() do
           nil ->
             context
-
           value ->
+
             context
             |> set_response(%NLGResponse{text: value}, personality())
+
+
         end
       end
 
