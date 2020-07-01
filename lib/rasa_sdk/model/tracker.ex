@@ -13,6 +13,7 @@ defmodule RasaSDK.Model.Tracker do
   @derive [Poison.Encoder]
   defstruct [
     :conversation_id,
+    :sender_id,
     :slots,
     :latest_message,
     :latest_event_time,
@@ -26,6 +27,7 @@ defmodule RasaSDK.Model.Tracker do
 
   @type t :: %__MODULE__{
           conversation_id: String.t() | nil,
+          sender_id: String.t() | nil,
           slots: [Map] | nil,
           latest_message: ParseResult | nil,
           latest_event_time: float() | nil,

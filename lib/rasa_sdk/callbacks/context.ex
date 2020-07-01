@@ -38,9 +38,8 @@ defmodule RasaSDK.Callbacks.Context do
     )
   end
 
-  def set_error(%__MODULE__{} = context, callback_name, error) do
+  def set_error(%__MODULE__{} = context, error) do
     Map.replace!(context, :error, %CallbackResponseRejected{
-      callback_name: callback_name,
       error: error
     })
   end

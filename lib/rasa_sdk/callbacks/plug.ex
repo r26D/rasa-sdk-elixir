@@ -23,12 +23,12 @@ defmodule RasaSDK.Callbacks.Plug do
         formatted_error = Exception.format(:error, error, __STACKTRACE__)
 
         Logger.error(
-          "Action #{context.request.next_action} failed with reason: #{formatted_error}"
+          "Callback failed with reason: #{formatted_error}"
         )
 
         context =
           context
-          |> Context.set_error(context.request.next_action, Exception.message(error))
+          |> Context.set_error( Exception.message(error))
 
         send_response(conn, context)
     end
