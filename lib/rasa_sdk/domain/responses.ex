@@ -1,4 +1,4 @@
-defmodule RasaSDK.Responses.Index do
+defmodule RasaSDK.Domain.Responses do
   @moduledoc """
   This module handles getting a list of all the responses available and outputting them in a format
   that can be used by the rasa chatbot during training.
@@ -9,7 +9,14 @@ defmodule RasaSDK.Responses.Index do
   def init(opts), do: opts
 
   def call(conn, opts) do
-    responses = Registry.list_keys(opts)
+
+    responses = Registry.all_keys(opts)
+                |> Enum.reduce(
+                     %{},
+                     fn {k, [{_, module}]}, acc ->
+                       Map.merge(acc, %{"#{k}" => [%{ text: "Place Holder Text"}]})
+                     end
+                   )
 
     conn
     |> put_resp_content_type("application/json")

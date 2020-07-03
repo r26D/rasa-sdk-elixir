@@ -11,10 +11,12 @@ defmodule RasaSDK.Actions.FormAction do
   @callback slot_mappings() :: map()
   @callback validate_slot(Context.t(), String.t(), term()) :: Context.t()
   @callback submit(Context.t()) :: Context.t()
-
+  def is_form_action?(module) do
+    RasaSDK.Actions.FormAction in (module.module_info(:attributes)[:behaviour] || [])
+  end
   defmacro __using__(_) do
     quote do
-      @behaviour RasaSDK.Actions.Action
+      @behaviour RasaSDK.Actions.FormAction
       import RasaSDK.Actions.Context
       import RasaSDK.Actions.Events
 
@@ -31,7 +33,9 @@ defmodule RasaSDK.Actions.FormAction do
         |> Enum.at(0)
         |> Macro.underscore()
       end
-
+      def slots_used() do
+        %{}
+      end
       # default implementation, overridable
       def on_activate(context), do: context
 
@@ -497,6 +501,7 @@ defmodule RasaSDK.Actions.FormAction do
       defoverridable on_activate: 1,
                      slot_mappings: 0,
                      name: 0,
+                     slots_used: 0,
                      validate: 1,
                      validate_slot: 3,
                      request_slot: 2

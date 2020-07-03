@@ -44,18 +44,17 @@ defmodule RasaSDK.Responses.Registry do
     end
   end
 
-  def list_keys(prefix: prefix) do
+  def all_keys(prefix: prefix) do
     key_stream(get_responses_table())
-    |> Enum.map(&{String.replace(&1, "#{prefix}/", ""), %{text: "Place Holder Text"}})
+    |> Enum.map(&{String.replace(&1, "#{prefix}/", ""), :ets.lookup(get_responses_table(), &1)})
     |> Enum.into(%{})
   end
 
-  def list_keys([]) do
+  def all_keys([]) do
     key_stream(get_responses_table())
-    |> Enum.map(&{&1, %{text: "Place Holder Text"}})
+    |> Enum.map(&{&1, :ets.lookup(get_responses_table(), &1)})
     |> Enum.into(%{})
   end
-
   #  https://stackoverflow.com/a/43842843
   defp key_stream(table_name) do
     Stream.resource(
