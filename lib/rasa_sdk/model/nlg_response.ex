@@ -14,7 +14,7 @@ defmodule RasaSDK.Model.NLGResponse do
     :text,
     :image,
     :elements,
-    :attachments,
+    :attachment,
     :buttons
   ]
 
@@ -22,7 +22,7 @@ defmodule RasaSDK.Model.NLGResponse do
           text: String.t(),
           image: String.t(),
           elements: [Element] | nil,
-          attachments: [Attachment] | nil,
+          attachment: [Attachment] | nil,
           buttons: [Button] | nil
         }
 end
@@ -34,6 +34,6 @@ defimpl Poison.Decoder, for: RasaSDK.Model.NLGResponse do
     value
     |> deserialize(:buttons, :list, RasaSDK.Model.Button, options)
     |> deserialize(:elements, :list, RasaSDK.Model.Element, options)
-    |> deserialize(:attachments, :list, RasaSDK.Model.Attachment, options)
+    |> deserialize(:attachment, :map, options)
   end
 end

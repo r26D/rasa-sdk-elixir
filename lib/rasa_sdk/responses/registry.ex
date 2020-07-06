@@ -17,6 +17,7 @@ defmodule RasaSDK.Responses.Registry do
     |> Enum.each(fn module ->
       if RasaSDK.Responses.Response in (module.module_info(:attributes)[:behaviour] || []) do
         #  IO.puts("Registering #{key_name(prefix, module.name())}")
+        IO.puts("Registering #{module.name()}")
         :ets.insert(responses_table, {key_name(prefix, module.name()), module})
       end
     end)

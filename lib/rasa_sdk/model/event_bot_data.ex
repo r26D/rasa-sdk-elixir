@@ -9,8 +9,7 @@ defmodule RasaSDK.Model.EventBotData do
     :quick_replies,
     :buttons,
     :attachments,
-    :image,
-    :custom
+    :image
   ]
 
 end

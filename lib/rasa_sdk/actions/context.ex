@@ -71,6 +71,25 @@ defmodule RasaSDK.Actions.Context do
       Map.put(tracker, :active_form, %{name: name, validate: validate})
     end)
   end
+  @doc """
+    Looks in the tracker to find the active form.
+  """
+  def get_active_form(
+        %__MODULE__{
+          request: %Request{
+            tracker: %Tracker{
+              active_form: active_form
+            }
+          }
+        }
+      ), do: active_form
+  @doc """
+    Looks in the active form for the name
+  """
+  def get_active_form_name(context) do
+    get_active_form(context)
+    |> Map.get(:name)
+  end
 
   @doc """
   Get entity values found for the passed entity name in latest msg.

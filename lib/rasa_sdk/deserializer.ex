@@ -11,19 +11,24 @@ defmodule RasaSDK.Deserializer do
     |> Map.get_and_update!(
       field,
       fn field_value ->
-        {
-          field_value,
-          Map.new(
-            field_value,
-            fn {key, value} ->
-              try do
-                {String.to_existing_atom(key), value}
-              rescue
-                ArgumentError -> {String.to_atom(key), value}
-              end
-            end
-          )
-        }
+         if field_value == nil do
+           {nil, nil}
+           else
+             {
+               field_value,
+               Map.new(
+                 field_value,
+                 fn {key, value} ->
+                   try do
+                     {String.to_existing_atom(key), value}
+                   rescue
+                     ArgumentError -> {String.to_atom(key), value}
+                   end
+                 end
+               )
+             }
+         end
+
       end
     )
     |> get_model()
