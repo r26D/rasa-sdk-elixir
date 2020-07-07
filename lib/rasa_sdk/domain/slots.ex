@@ -15,7 +15,7 @@ defmodule RasaSDK.Domain.Slots do
     slots = Registry.all_keys(opts)
             |> Enum.reduce(
                  %{},
-                 fn {k, [{_, module}]}, acc ->
+                 fn {_k, [{_, module}]}, acc ->
                    Map.merge(acc, module.slots_used)
                  end
                )

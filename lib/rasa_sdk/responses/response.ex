@@ -27,7 +27,7 @@ defmodule RasaSDK.Responses.Response do
            This is an overrideable method to make a response.
       """
       def respond(%Context{} = context) do
-        case simple_text() do
+      case simple_text() do
           nil ->
             case attachment(context) do
               nil -> context

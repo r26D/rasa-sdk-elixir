@@ -13,7 +13,7 @@ defmodule RasaSDK.Domain.Responses do
     responses = Registry.all_keys(opts)
                 |> Enum.reduce(
                      %{},
-                     fn {k, [{_, module}]}, acc ->
+                     fn {k, [{_, _module}]}, acc ->
                        Map.merge(acc, %{"#{k}" => [%{ text: "Place Holder Text"}]})
                      end
                    )
