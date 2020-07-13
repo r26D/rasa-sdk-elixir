@@ -340,8 +340,8 @@ defmodule RasaSDK.Actions.FormAction do
             intent.name
           end
 
-        intent_not_blacklisted = Enum.empty?(intents) and not Enum.member?(not_intents, intent)
-        intent_not_blacklisted or Enum.member?(intents, intent)
+        intent_not_denied = Enum.empty?(intents) and not Enum.member?(not_intents, intent)
+        intent_not_denied or Enum.member?(intents, intent)
       end
 
       defp get_entity_value(slot_mapping, %Context{} = context) do
