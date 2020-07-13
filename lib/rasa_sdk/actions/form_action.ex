@@ -249,7 +249,7 @@ defmodule RasaSDK.Actions.FormAction do
         end
       end
 
-      defp request_next_slot(context) do
+      def request_next_slot(context) do
         slots_needed =
           required_slots(context)
           |> Enum.filter(fn slot_name -> should_request_slot(context, slot_name) end)
@@ -259,7 +259,7 @@ defmodule RasaSDK.Actions.FormAction do
         end
       end
 
-      defp should_request_slot(context, slot_name) do
+      def should_request_slot(context, slot_name) do
         value = get_slot(context, slot_name)
         is_nil(value)
       end
@@ -504,7 +504,9 @@ defmodule RasaSDK.Actions.FormAction do
                      slots_used: 0,
                      validate: 1,
                      validate_slot: 3,
-                     request_slot: 2
+                     request_slot: 2,
+                     request_next_slot: 1,
+                     should_request_slot: 2
     end
   end
 end
