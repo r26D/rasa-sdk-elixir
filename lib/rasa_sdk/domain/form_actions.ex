@@ -16,17 +16,10 @@ defmodule RasaSDK.Domain.FormActions do
     actions = Registry.all_keys(opts)
               |> Enum.map(
                    fn {k, [{_, module}]} ->
-
-                     if FormAction.is_form_action?(module) do
-                       k
-                     else
-                       nil
-                     end
-
+                     if FormAction.is_form_action?(module), do: k, else: nil
                    end
                  )
               |> Enum.filter(&(&1 != nil))
-
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(200, Poison.encode!(actions))
