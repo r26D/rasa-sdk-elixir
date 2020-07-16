@@ -17,7 +17,7 @@ defmodule RasaSDK.Actions.Registry do
     |> Enum.each(
          fn module ->
            if Action.is_action?(module) || FormAction.is_form_action?(module) do
-             IO.puts("Registering #{module.name()}")
+           #  IO.puts("Registering #{module.name()}")
              :ets.insert(actions_table, {key_name(prefix, module.name()), module})
            end
          end
