@@ -3,6 +3,7 @@ defmodule RasaSDK.Actions.Action do
 
   @callback name() :: String.t()
   @callback run(Context.t()) :: Context.t()
+  @callback slots_used() :: map()
   def is_action?(module) do
     RasaSDK.Actions.Action in (module.module_info(:attributes)[:behaviour] || [])
   end
