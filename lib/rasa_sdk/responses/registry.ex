@@ -14,14 +14,25 @@ defmodule RasaSDK.Responses.Registry do
     :ets.new(responses_table, [:set, :protected, :named_table])
 
     modules
-    |> Enum.each(fn module ->
-      if RasaSDK.Responses.Response in (module.module_info(:attributes)[:behaviour] || []) do
-        #  IO.puts("Registering #{key_name(prefix, module.name())}")
-        IO.puts("Registering #{module.name()}")
-        :ets.insert(responses_table, {key_name(prefix, module.name()), module})
-      end
-    end)
+    |> Enum.each(
+         fn module ->
+           cond do
+             RasaSDK.Responses.Response.is_response?(module) ->
+               :ets.insert(responses_table, {key_name(prefix, module.name()), module})
+             RasaSDK.Responses.MultiResponse.is_response?(module) ->
+                module.names()
+                |> Enum.each(fn name ->
+                  #  IO.puts("Registering a response #{name}")
+                  :ets.insert(responses_table, {key_name(prefix, name), module})
+                end)
+             true -> true
+           end
+
+         end
+       )
   end
+
+
 
   defp key_name(nil, name), do: name
 
@@ -31,7 +42,14 @@ defmodule RasaSDK.Responses.Registry do
 
   def execute(%Context{} = context), do: execute(context, prefix: nil)
 
-  def execute(%Context{request: %{template: response_name}} = context, prefix: prefix) do
+  def execute(
+        %Context{
+          request: %{
+            template: response_name
+          }
+        } = context,
+        prefix: prefix
+      ) do
     #   IO.puts("Going to look for #{key_name(prefix, response_name)}")
     case :ets.lookup(get_responses_table(), key_name(prefix, response_name)) do
       [] ->
@@ -41,7 +59,7 @@ defmodule RasaSDK.Responses.Registry do
 
       [{_, module}] ->
         #   IO.puts("Responding from #{key_name(prefix, response_name)}")
-        module.run(context)
+        module.run(context, response_name)
     end
   end
 

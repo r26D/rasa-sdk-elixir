@@ -3,7 +3,7 @@ defmodule RasaSDK.Responses.Response do
   alias RasaSDK.Model.NLGResponse
 
   @callback name() :: String.t()
-  @callback run(Context.t()) :: Context.t()
+  @callback run(Context.t(), String.t()) :: Context.t()
   def is_response?(module) do
     RasaSDK.Responses.Response in (module.module_info(:attributes)[:behaviour] || [])
   end
@@ -42,7 +42,7 @@ defmodule RasaSDK.Responses.Response do
 
       def personality(), do: nil
 
-      def run(%Context{} = context) do
+      def run(%Context{} = context, _response_name) do
         context
         |> preprocess()
         |> respond()
