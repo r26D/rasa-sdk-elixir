@@ -5,15 +5,66 @@ defmodule RasaSDK.Actions.FormAction do
   alias RasaSDK.Model.{ParseResult, Tracker}
 
   require Logger
-
+  @callback name() :: String.t()
+  @callback slots_used() :: map()
   @callback on_activate(Context.t()) :: Context.t()
   @callback required_slots(Context.t()) :: [String.t()]
+  @callback prefillable_slots(Context.t()) :: [String.t()]
   @callback slot_mappings() :: map()
   @callback validate_slot(Context.t(), String.t(), term()) :: Context.t()
   @callback submit(Context.t()) :: Context.t()
   def is_form_action?(module) do
     RasaSDK.Actions.FormAction in (module.module_info(:attributes)[:behaviour] || [])
   end
+
+  #Moved out so they can be used by other Form like functions
+  def from_entity(entity, opts \\ []) do
+    %{
+      type: "from_entity",
+      entity: entity,
+      intent: to_list(Keyword.get(opts, :intent, [])),
+      not_intent: to_list(Keyword.get(opts, :not_intent, [])),
+      overwrite: Keyword.get(opts, :overwrite, true),
+      role: Keyword.get(opts, :role),
+      group: Keyword.get(opts, :group)
+    }
+  end
+
+  def from_trigger_intent(value, opts \\ []) do
+    %{
+      type: "from_trigger_intent",
+      value: value,
+      intent: to_list(Keyword.get(opts, :intent, [])),
+      not_intent: to_list(Keyword.get(opts, :not_intent, [])),
+      overwrite: Keyword.get(opts, :overwrite, true)
+    }
+  end
+
+  def from_intent(value, opts \\ []) do
+    %{
+      type: "from_intent",
+      value: value,
+      intent: to_list(Keyword.get(opts, :intent, [])),
+      not_intent: to_list(Keyword.get(opts, :not_intent, [])),
+      overwrite: Keyword.get(opts, :overwrite, true)
+    }
+  end
+
+  def from_text(opts \\ []) do
+    %{
+      type: "from_text",
+      intent: to_list(Keyword.get(opts, :intent, [])),
+      not_intent: to_list(Keyword.get(opts, :not_intent, [])),
+      overwrite: Keyword.get(opts, :overwrite, true)
+    }
+  end
+
+  defp to_list(value) when is_list(value), do: value
+
+  defp to_list(value), do: [value]
+
+
+
   defmacro __using__(_) do
     quote do
       @behaviour RasaSDK.Actions.FormAction
@@ -94,7 +145,7 @@ defmodule RasaSDK.Actions.FormAction do
             |> set_slots_from_events()
 
           prefilled_slots =
-            required_slots(context)
+            prefillable_slots(context)
             |> Enum.reject(fn slot_name -> should_request_slot(context, slot_name) end)
             |> Enum.map(fn slot_name -> {slot_name, get_slot(context, slot_name)} end)
             |> Enum.into(%{})
@@ -217,6 +268,11 @@ defmodule RasaSDK.Actions.FormAction do
         )
       end
 
+      def from_entity(entity, opts \\ []), do: RasaSDK.Actions.FormAction.from_entity(entity,opts)
+      def from_trigger_intent(value, opts \\ []), do: RasaSDK.Actions.FormAction.from_trigger_intent(value,opts)
+      def from_intent(value, opts \\ []), do: RasaSDK.Actions.FormAction.from_intent(value,opts)
+      def from_text(opts \\ []), do: RasaSDK.Actions.FormAction.from_text(opts)
+
       defp request_slots(
              %Context{
                request: %Request{
@@ -264,51 +320,7 @@ defmodule RasaSDK.Actions.FormAction do
         is_nil(value)
       end
 
-      # private functions every form can utilize
-      defp from_entity(entity, opts \\ []) do
-        %{
-          type: "from_entity",
-          entity: entity,
-          intent: to_list(Keyword.get(opts, :intent, [])),
-          not_intent: to_list(Keyword.get(opts, :not_intent, [])),
-          overwrite: Keyword.get(opts, :overwrite, true),
-          role: Keyword.get(opts, :role),
-          group: Keyword.get(opts, :group)
-        }
-      end
 
-      defp from_trigger_intent(value, opts \\ []) do
-        %{
-          type: "from_trigger_intent",
-          value: value,
-          intent: to_list(Keyword.get(opts, :intent, [])),
-          not_intent: to_list(Keyword.get(opts, :not_intent, [])),
-          overwrite: Keyword.get(opts, :overwrite, true)
-        }
-      end
-
-      defp from_intent(value, opts \\ []) do
-        %{
-          type: "from_intent",
-          value: value,
-          intent: to_list(Keyword.get(opts, :intent, [])),
-          not_intent: to_list(Keyword.get(opts, :not_intent, [])),
-          overwrite: Keyword.get(opts, :overwrite, true)
-        }
-      end
-
-      defp from_text(opts \\ []) do
-        %{
-          type: "from_text",
-          intent: to_list(Keyword.get(opts, :intent, [])),
-          not_intent: to_list(Keyword.get(opts, :not_intent, [])),
-          overwrite: Keyword.get(opts, :overwrite, true)
-        }
-      end
-
-      defp to_list(value) when is_list(value), do: value
-
-      defp to_list(value), do: [value]
 
       defp get_mappings_for_slot(slot_to_fill) do
         slot_mapping = Map.get(slot_mappings(), slot_to_fill, [from_entity(slot_to_fill)])
@@ -352,7 +364,6 @@ defmodule RasaSDK.Actions.FormAction do
             role: slot_mapping.role,
             group: slot_mapping.group
           )
-
         cond do
           Enum.empty?(values) ->
             nil
@@ -370,7 +381,7 @@ defmodule RasaSDK.Actions.FormAction do
       def extract_other_slots(%Context{} = context) do
         slot_to_fill = get_slot(context, @requested_slot)
 
-        required_slots(context)
+        prefillable_slots(context)
         |> Enum.reject(fn slot -> slot == slot_to_fill end)
         |> Enum.flat_map(fn slot ->
           get_mappings_for_slot(slot)
@@ -497,7 +508,14 @@ defmodule RasaSDK.Actions.FormAction do
            }) do
         !is_nil(Enum.find_index(events, &(&1.event == "form" and &1.name == nil)))
       end
-
+      @doc """
+          This defaults to the required slots. It is possible to have slots that are
+  conditionally required. In that case you don't want them in the list of required_slots
+  but they should be in the prefillable_slots list so their value can be loaded in.
+"""
+      def prefillable_slots(%Context{} = context) do
+        required_slots(context)
+      end
       defoverridable on_activate: 1,
                      slot_mappings: 0,
                      name: 0,
@@ -506,7 +524,8 @@ defmodule RasaSDK.Actions.FormAction do
                      validate_slot: 3,
                      request_slot: 2,
                      request_next_slot: 1,
-                     should_request_slot: 2
+                     should_request_slot: 2,
+                     prefillable_slots: 1
     end
   end
 end
