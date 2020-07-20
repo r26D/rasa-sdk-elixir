@@ -10,10 +10,10 @@ defmodule RasaSDK.Callbacks.Plug do
 
   def init(opts), do: opts
 
-  def call(%Plug.Conn{body_params: body_params} = conn, handler_module: handler_module) do
-    context =
+  def call(%Plug.Conn{body_params: body_params} = conn, handler_module: handler_module, request_module: request_module) do
+     context =
       body_params
-      |> Poison.Decode.decode(as: %RasaSDK.Model.CallbackRequest{})
+      |> Poison.Decode.decode(as: struct(request_module, %{}))
       |> Context.new()
 
     try do
@@ -33,7 +33,9 @@ defmodule RasaSDK.Callbacks.Plug do
         send_response(conn, context)
     end
   end
-
+  def call(conn, handler_module: handler_module) do
+    call(conn, handler_module: handler_module, request_module: %RasaSDK.Model.CallbackRequest{} )
+    end
   defp send_response(conn, %Context{response: response, error: nil}) do
     conn
     |> put_resp_content_type("application/json")
