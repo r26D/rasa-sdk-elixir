@@ -9,7 +9,6 @@ defmodule RasaSDK.ExternalEvents.Client do
     post("/webhooks/callback/webhook",  Jason.encode!(%{sender: conversation_id, message: content}))
   end
   def channel_message(conversation_id, channel_name, message) when is_map(message) do
-    IO.puts("Going to post to /webhooks/#{channel_name}/webhook #{ Jason.encode!( message )}")
     post("/webhooks/#{channel_name}/webhook",  Jason.encode!( message |> Map.put(:sender, conversation_id)))
   end
 
