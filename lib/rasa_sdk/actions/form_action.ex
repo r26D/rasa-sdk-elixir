@@ -59,9 +59,9 @@ defmodule RasaSDK.Actions.FormAction do
     }
   end
 
-  defp to_list(value) when is_list(value), do: value
+  def to_list(value) when is_list(value), do: value
 
-  defp to_list(value), do: [value]
+  def to_list(value), do: [value]
 
 
 
@@ -491,8 +491,12 @@ defmodule RasaSDK.Actions.FormAction do
         text
       end
 
-      defp get_requested_slot_value(_, _), do: nil
+      defp get_requested_slot_value(mapping, context), do:  custom_slot_parser(mapping, context)
 
+      @doc """
+          This allows you to handle custom mappings
+"""
+      def custom_slot_parser(mapping, context), do: nil
       defp deactivate(%Context{} = context) do
         Logger.debug("Deactivating the form #{name()}")
 
@@ -525,7 +529,8 @@ defmodule RasaSDK.Actions.FormAction do
                      request_slot: 2,
                      request_next_slot: 1,
                      should_request_slot: 2,
-                     prefillable_slots: 1
+                     prefillable_slots: 1,
+                     custom_slot_parser: 2
     end
   end
 end
