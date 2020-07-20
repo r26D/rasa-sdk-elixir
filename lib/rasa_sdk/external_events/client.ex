@@ -8,11 +8,12 @@ defmodule RasaSDK.ExternalEvents.Client do
   def message(conversation_id, content) do
     post("/webhooks/callback/webhook",  Jason.encode!(%{sender: conversation_id, message: content}))
   end
+  def channel_message(conversation_id, channel_name, message) when is_map(message) do
+    IO.puts("Going to post to /webhooks/#{channel_name}/webhook #{ Jason.encode!( message )}")
+    post("/webhooks/#{channel_name}/webhook",  Jason.encode!( message |> Map.put(:sender, conversation_id)))
+  end
 
-#  def external_event(conversation_id, event_name, output_channel \\ "latest") do
-#    external_event(conversation_id, event_name, output_channel, %{})
-#
-#  end
+
   def external_event(conversation_id, event_name, output_channel \\ "latest", entities \\ %{}) do
     case   post(
              "/conversations/#{conversation_id}/trigger_intent",
