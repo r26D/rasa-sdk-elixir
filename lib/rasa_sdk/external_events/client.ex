@@ -6,10 +6,16 @@ defmodule RasaSDK.ExternalEvents.Client do
   plug Tesla.Middleware.JSON
 
   def message(conversation_id, content) do
-    post("/webhooks/callback/webhook",  Jason.encode!(%{sender: conversation_id, message: content}))
+    post("/webhooks/callback/webhook", Jason.encode!(%{sender: conversation_id, message: content}))
   end
   def channel_message(conversation_id, channel_name, message) when is_map(message) do
-    post("/webhooks/#{channel_name}/webhook",  Jason.encode!( message |> Map.put(:sender, conversation_id)))
+    post(
+      "/webhooks/#{channel_name}/webhook",
+      Jason.encode!(
+        message
+        |> Map.put(:sender, conversation_id)
+      )
+    )
   end
 
 
